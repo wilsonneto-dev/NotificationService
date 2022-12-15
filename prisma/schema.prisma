@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url = env("DATABASE_URL")
+}
+
+model User {
+  id String @id
+  name String
+  active Boolean
+
+  notifications Notification[]
+}
+
+model Notification {
+  id String @id
+  type String
+  template String
+  
+  content String?
+  properties String?
+
+  read Boolean
+  onPlatform Boolean
+  createdAt DateTime
+  readAt DateTime?
+
+  userId String
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}

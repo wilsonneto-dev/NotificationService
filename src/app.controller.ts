@@ -1,6 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { randomUUID } from 'crypto';
-import { brotliDecompressSync } from 'zlib';
 import { AppService } from './app.service';
 import { PrismaService } from './prisma.service';
 
@@ -25,6 +24,25 @@ export class AppController {
         name,
         id: randomUUID(),
         active,
+      },
+    });
+  }
+
+  @Post('/notifications')
+  createNotification(
+    @Body() { idUser, notification }: { idUser: string; notification: string },
+  ) {
+    console.log(idUser, notification);
+    return this.prismaService.notification.create({
+      data: {
+        id: randomUUID(),
+        createdAt: new Date(),
+        onPlatform: true,
+        read: false,
+        template: 'teplateX',
+        type: 'type',
+        content: notification,
+        userId: idUser,
       },
     });
   }

@@ -1,3 +1,5 @@
+@BaseUrl = http://localhost:3000
+
 GET http://localhost:3000/ HTTP/1.1
 
 ###
@@ -7,4 +9,13 @@ Content-Type: application/json
 {
     "name": "Wilson Neto", 
     "active": true
+}
+
+###
+POST {{BaseUrl}}/notifications HTTP/1.1
+Content-Type: application/json
+
+{
+    "idUser": "31709c9a-7c61-42dc-b424-794668e60703",
+    "notification": "Guy X applied to your opportunity Xpto"
 }
